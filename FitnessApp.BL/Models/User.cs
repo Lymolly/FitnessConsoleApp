@@ -5,22 +5,22 @@ using System.Text;
 
 namespace FitnessApp.BL.Models
 {
-    class User
+    [Serializable]
+   public  class User
     {
         #region Props and fields
-        private readonly decimal _coins;
+        //private readonly decimal _coins;
         public string FirstName { get;}
         public string LastName { get; }
         public string Nickname { get; set; }
-        public DateTime Birthdate { get; }
         public DateTime BirthDate { get; }
         public UserGender Gender { get; }
         public double Weight { get; set; }
         public double Height { get; set; }
-        public decimal Coins
-        {
-            get { return _coins; }
-        }
+        //public decimal Coins
+        //{
+        //    get { return _coins; }
+        //}
 
         public string FName { get; }
         public string LName { get; }
@@ -51,7 +51,7 @@ namespace FitnessApp.BL.Models
             {
                 throw new ArgumentNullException("Enter your nickname!", nameof(nickname));
             }
-            if (birthdate <= DateTime.Parse("01.01.1920") && birthdate >= DateTime.Today && birthdate == null)
+            if (birthdate < DateTime.Parse("01.01.1920") && birthdate >= DateTime.Today)
             {
                 throw new BirhDateException("You birth date entered incorrect or null! \n Please try again.", nameof(birthdate));
             }
@@ -72,7 +72,7 @@ namespace FitnessApp.BL.Models
             FName = fName;
             LName = lName;
             Nickname = nickname;
-            Birthdate = birthdate;
+            BirthDate = birthdate;
             Gender = gender;
             Weight = weight;
             Height = height;
