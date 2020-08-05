@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
@@ -16,45 +17,83 @@ namespace FitnessApp.BL.Controllers
         /// <summary>
         /// App user.
         /// </summary>
-        public User User { get; }
+        public User CurrentUser { get; }
+        public List<User> Users { get; }
+        public bool IsNewUser { get; } = false;
+
 
         /// <summary>
         /// Creating new user controller.
         /// </summary>
-        /// <param name="user"></param>
-        public UserController(string userFName, string userLName, string nickname,string userGender,
-            DateTime birthDate, 
-            double weight, double height )
+        
+        public UserController(string nickname)
         {
-            var gender = new UserGender(userGender); 
-            User = new User(userFName, userLName, nickname, birthDate, gender, weight, height);
+            if (string.IsNullOrWhiteSpace(nickname))
+            {
+                throw new ArgumentNullException("Enter your nickname!", nameof(nickname));
+            }
+            
+            Users = GetUsersData();
+
+            CurrentUser = Users.SingleOrDefault(u => u.Nickname == nickname);
+
+            if (CurrentUser is null)
+            {
+                CurrentUser = new User(nickname);
+                Users.Add(CurrentUser);
+                IsNewUser = true;
+                SaveUser();
+            }
+
+        }
+        public void SetNewUserData(string gender, DateTime birthdate, double weight = 1 ,double height = 1)
+        {
+            CurrentUser.Gender = new UserGender(gender);
+            CurrentUser.BirthDate = birthdate;
+            CurrentUser.Height = height;
+            CurrentUser.Weight = weight;
+            SaveUser();
         }
         /// <summary>
-        /// Load user's data.
+        /// Load userses data.
         /// </summary>
-        /// <returns>User's data or empty file</returns>
-        public UserController()
+        /// <returns>Loads list of users</returns>
+        public List<User> GetUsersData()
         {
             var binFormatter = new BinaryFormatter();
             using (var binFile = new FileStream("users.dat", FileMode.OpenOrCreate))
             {
-                if (binFormatter.Deserialize(binFile) is User user)
+                ///<summary>
+                ///Костыль!
+                ///    |
+                ///    |
+                ///   \ /
+                ///    |
+                /// </summary>
+                if (binFile.Length == 0)
                 {
-                    User = user;
+                    return new List<User>();
                 }
-                //TODO шо робыть если пользователя для сериализации не нашлось? ??Вернуть форму с предупреждением либо пустой бинарник либо предложить создать нового
+                if (binFormatter.Deserialize(binFile) is List<User> users)
+                {
+                    return users;
+                }
+                else
+                {                   
+                   return new List<User>();
+                }
             }
         }
 
         /// <summary>
         /// Save user's data.
         /// </summary>
-        public void SaveUser()
+        private void SaveUser()
         {
             var binFormatter = new BinaryFormatter();
             using (var binFile = new FileStream("users.dat", FileMode.OpenOrCreate))
             {
-                binFormatter.Serialize(binFile, User);
+                binFormatter.Serialize(binFile, Users);
             }
         }
         

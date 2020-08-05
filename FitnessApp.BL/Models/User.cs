@@ -13,10 +13,11 @@ namespace FitnessApp.BL.Models
         public string FirstName { get;}
         public string LastName { get; }
         public string Nickname { get; set; }
-        public DateTime BirthDate { get; }
-        public UserGender Gender { get; }
+        public DateTime BirthDate { get; set; }
+        public UserGender Gender { get; set; }
         public double Weight { get; set; }
         public double Height { get; set; }
+        public int Age { get { return DateTime.Now.Year - BirthDate.Year; } }
         //public decimal Coins
         //{
         //    get { return _coins; }
@@ -76,6 +77,19 @@ namespace FitnessApp.BL.Models
             Gender = gender;
             Weight = weight;
             Height = height;
+        }
+        public User(string nickname)
+        {
+            if (string.IsNullOrWhiteSpace(nickname))
+            {
+                throw new ArgumentNullException("Enter your nickname!", nameof(nickname));
+            }
+            Nickname = nickname;
+        }
+
+        public override string ToString()
+        {
+            return $"Hello, {Nickname}({FirstName} {LastName}) - {Age} y.o.";
         }
 
     }
