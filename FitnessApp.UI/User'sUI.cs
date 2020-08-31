@@ -38,7 +38,7 @@ namespace FitnessApp.UI
             Console.ReadLine();
 
         }
-
+        #region Parse helpful funcs
         private static DateTime ParseDateTime()
         {
             DateTime birhtDate;
@@ -73,5 +73,6 @@ namespace FitnessApp.UI
                 }
             }
         }
+        #endregion
     }
 }
