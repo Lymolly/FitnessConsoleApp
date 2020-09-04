@@ -13,7 +13,7 @@ namespace FitnessApp.BL.Models
         /// <summary>
         /// Gender name property
         /// </summary>
-        public string GenderName { get; }
+        public string GenderName { get;}
 
         /// <summary>
         /// Check gender
@@ -25,6 +25,7 @@ namespace FitnessApp.BL.Models
             {
                 throw new ArgumentNullException("Gender can't be null!", nameof(gender));
             }
+            GenderName = gender;
         }
         public override string ToString()
         {

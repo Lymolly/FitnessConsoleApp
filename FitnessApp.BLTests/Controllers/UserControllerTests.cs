@@ -3,6 +3,7 @@ using FitnessApp.BL.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FitnessApp.BL.Models;
 
 namespace FitnessApp.BL.Controllers.Tests
 {
@@ -14,6 +15,7 @@ namespace FitnessApp.BL.Controllers.Tests
         public void SetNewUserDataTest()
         {
             //Arrange
+            
             var userName = new Guid().ToString();
             var birthDate = DateTime.Now.AddYears(-18);
             var weight = 75;

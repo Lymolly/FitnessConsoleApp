@@ -12,7 +12,7 @@ namespace FitnessApp.BL.Controllers
     /// <summary>
     /// User's controller.
     /// </summary>
-    public class UserController
+    public class UserController : BaseController
     {
         /// <summary>
         /// App user.
@@ -20,12 +20,13 @@ namespace FitnessApp.BL.Controllers
         public User CurrentUser { get; }
         public List<User> Users { get; }
         public bool IsNewUser { get; } = false;
+        private const string USER_FILE_NAME = "users.dat";
 
 
         /// <summary>
         /// Creating new user controller.
         /// </summary>
-        
+
         public UserController(string nickname)
         {
             if (string.IsNullOrWhiteSpace(nickname))
@@ -58,31 +59,13 @@ namespace FitnessApp.BL.Controllers
         /// Load userses data.
         /// </summary>
         /// <returns>Loads list of users</returns>
+        
         public List<User> GetUsersData()
         {
-            var binFormatter = new BinaryFormatter();
-            using (var binFile = new FileStream("users.dat", FileMode.OpenOrCreate))
-            {
-                ///<summary>
-                ///Костыль!
-                ///    |
-                ///    |
-                ///   \ /
-                ///    |
-                /// </summary>
-                if (binFile.Length == 0)
-                {
-                    return new List<User>();
-                }
-                if (binFormatter.Deserialize(binFile) is List<User> users)
-                {
-                    return users;
-                }
-                else
-                {                   
-                   return new List<User>();
-                }
-            }
+            /// <summary>
+            /// BaseController's class method
+            /// </summary>
+            return Load<List<User>>(USER_FILE_NAME) ?? new List<User>();
         }
 
         /// <summary>
@@ -90,11 +73,10 @@ namespace FitnessApp.BL.Controllers
         /// </summary>
         private void SaveUser()
         {
-            var binFormatter = new BinaryFormatter();
-            using (var binFile = new FileStream("users.dat", FileMode.OpenOrCreate))
-            {
-                binFormatter.Serialize(binFile, Users);
-            }
+            /// <summary>
+            /// BaseController's class method
+            /// </summary>
+            Save(USER_FILE_NAME, Users); 
         }
         
     }
