@@ -29,9 +29,9 @@ namespace FitnessApp.BL.Models
         public double Calories { get; }
 
 
-        public Food(string name) : this(name, 0, 0, 0, 0)
-        {
-        }
+        //public Food(string name) : this(name, 0, 0, 0, 0)
+        //{
+        //}
         public Food(string name,double proteins, double fats, double carbohydrates, double calories)
         {
             #region Checks

@@ -2,7 +2,9 @@
 using FitnessApp.BL.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Resources;
 using System.Runtime.Remoting.Services;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +15,13 @@ namespace FitnessApp.UI
     {
         static void Main(string[] args)
         {
+            var culture = CultureInfo.CreateSpecificCulture("en-en");
+            var resourceManager = new ResourceManager("FitnessApp.UI.Languages.Messages en-en", typeof(Program).Assembly);
+
+            Console.WriteLine(resourceManager.GetString("Hello", culture));
+            Console.WriteLine(resourceManager.GetString("EnterNickname", culture));
 
 
-            Console.WriteLine("Hello fucking fat animal");
-            Console.WriteLine("My name is FAT_KILLER_SUPER_APP");
-            Console.WriteLine("And now you will be track your weight!");
-
-            Console.WriteLine("Enter your Nickname, baby: ");
             var nickname = Console.ReadLine();
 
             var userController = new UserController(nickname);
@@ -27,7 +29,7 @@ namespace FitnessApp.UI
 
             if (userController.IsNewUser)
             {
-                Console.WriteLine("Enter gender:");
+                Console.WriteLine(resourceManager.GetString("EnterGender",culture));
                 var gender = Console.ReadLine();
                 var birhtDate = ParseDateTime();
                 var weight = ParseToDouble("weight");
@@ -50,11 +52,11 @@ namespace FitnessApp.UI
                 eatingFoodController.Add(foods.Food, foods.Weight);
                 foreach (var item in eatingFoodController.Eating.FoodList)
                 {
-                    Console.WriteLine($"\t{item.Key} - {item.Value}");
+                    Console.WriteLine($"\t{item.Key} - {item.Value} gr.");
                 }
             }  
 
-                Console.WriteLine($"Последний прием пищи в : {eatingFoodController.Eating.LastTimeEating}");
+                Console.WriteLine($"Last eating date : {eatingFoodController.Eating.LastTimeEating}");
                 Console.ReadLine();
 
         }
