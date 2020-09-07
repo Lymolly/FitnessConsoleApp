@@ -23,6 +23,7 @@ namespace FitnessApp.UI
             var nickname = Console.ReadLine();
 
             var userController = new UserController(nickname);
+            var eatingFoodController = new FoodEatingController(userController.CurrentUser);
 
             if (userController.IsNewUser)
             {
@@ -41,23 +42,26 @@ namespace FitnessApp.UI
             }
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("If you want to enter eating push - E");
+            //Console.WriteLine("If you wanna check all food history - press R");
             var key = Console.ReadKey();
             if (key.Key == ConsoleKey.E)
             {
-                EnterEating();
-            }
+                var foods = EnterEating();
+                eatingFoodController.Add(foods.Food, foods.Weight);
+                foreach (var item in eatingFoodController.Eating.FoodList)
+                {
+                    Console.WriteLine($"\t{item.Key} - {item.Value}");
+                }
+            }  
 
-
-
-
-
-            Console.ReadLine();
+                Console.WriteLine($"Последний прием пищи в : {eatingFoodController.Eating.LastTimeEating}");
+                Console.ReadLine();
 
         }
 
-        private static (Food, double) EnterEating()
+        private static (Food Food,double Weight) EnterEating()
         {
-            Console.WriteLine("Enter product name");
+            Console.Write("Enter product name : ");
             var food = Console.ReadLine();
             var weight = ParseToDouble("a weight of portion");
 
@@ -68,7 +72,7 @@ namespace FitnessApp.UI
 
             var product = new Food(food,proteins,fats,carbs,calories);
 
-            return (product, weight);
+            return (Food: product,Weight: weight);
         }
         #region Parse helpful funcs
         private static DateTime ParseDateTime()
@@ -94,7 +98,7 @@ namespace FitnessApp.UI
         {
             while (true)
             {
-                Console.WriteLine($"Enter {input} :");
+                Console.Write($"Enter {input} : ");
                 if (double.TryParse(Console.ReadLine() , out double value))
                 {
                     return value;
