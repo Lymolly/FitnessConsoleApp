@@ -61,6 +61,24 @@ namespace FitnessApp.UI.Languages {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на If you want to enter eating press E.
+        /// </summary>
+        internal static string EnterEating {
+            get {
+                return ResourceManager.GetString("EnterEating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на If you want to enter exercise press A.
+        /// </summary>
+        internal static string EnterExercise {
+            get {
+                return ResourceManager.GetString("EnterExercise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Enter your gender: .
         /// </summary>
         internal static string EnterGender {
@@ -79,11 +97,47 @@ namespace FitnessApp.UI.Languages {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter Q to exit.
+        /// </summary>
+        internal static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Hello, I&apos;m fitness application.
         /// </summary>
         internal static string Hello {
             get {
                 return ResourceManager.GetString("Hello", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Last eating date.
+        /// </summary>
+        internal static string LastEatingDate {
+            get {
+                return ResourceManager.GetString("LastEatingDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на To see profile information press ENTER.
+        /// </summary>
+        internal static string SeeInformation {
+            get {
+                return ResourceManager.GetString("SeeInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на What do you want to do?.
+        /// </summary>
+        internal static string WhatToDo {
+            get {
+                return ResourceManager.GetString("WhatToDo", resourceCulture);
             }
         }
     }

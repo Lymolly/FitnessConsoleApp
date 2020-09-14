@@ -117,13 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EnterEating" xml:space="preserve">
+    <value>If you want to enter eating press E</value>
+  </data>
+  <data name="EnterExercise" xml:space="preserve">
+    <value>If you want to enter exercise press A</value>
+  </data>
   <data name="EnterGender" xml:space="preserve">
     <value>Enter your gender: </value>
   </data>
   <data name="EnterNickname" xml:space="preserve">
     <value>Enter your nickname to continue or create new: </value>
   </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Enter Q to exit</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Hello, I'm fitness application</value>
+  </data>
+  <data name="LastEatingDate" xml:space="preserve">
+    <value>Last eating date</value>
+  </data>
+  <data name="SeeInformation" xml:space="preserve">
+    <value>To see profile information press ENTER</value>
+  </data>
+  <data name="WhatToDo" xml:space="preserve">
+    <value>What do you want to do?</value>
   </data>
 </root>
